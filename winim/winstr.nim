@@ -502,9 +502,9 @@ proc repr*(s: wstring): string =
 
 # mstring functions
 
-proc `[]`*(s: mstring, x: Slice[int]): mstring {.borrow.}
-proc `[]=`*(s: var mstring, x: Slice[int], b: mstring) {.borrow.}
-proc `[]=`*(s: var mstring, x: Slice[int], b: string) {.borrow.}
+proc `[]`*[T, U](s: mstring, x: HSlice[T, U]): mstring {.inline.} = mstring(string(s)[x])
+proc `[]=`*[T, U](s: var mstring, x: HSlice[T, U], b: mstring) {.inline.} = mstring(string(s)[x]=string(b))
+proc `[]=`*[T, U](s: var mstring, x: HSlice[T, U], b: string) {.inline.} = mstring(string(s)[x]=b)
 proc `&` * (x: mstring, y: char): mstring {.borrow.}
 proc `&` * (x, y: mstring): mstring {.borrow.}
 proc `&` * (x: char, y: mstring): mstring {.borrow.}

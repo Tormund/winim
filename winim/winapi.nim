@@ -15617,12 +15617,12 @@ const
 proc SUCCEEDED*(Status: HRESULT): bool = Status >= 0
 proc FAILED*(Status: HRESULT): bool = Status < 0
 proc IS_ERROR*(Status: HRESULT): bool = ( Status shr 31 ) == SEVERITY_ERROR
-proc HRESULT_CODE*(r: HRESULT): uint16 = r and 0xFFFF
-proc SCODE_CODE*(r: SCODE): uint16 = r and 0xFFFF
-proc HRESULT_FACILITY*(r: HRESULT): uint16 = (r shr 16) and 0x1fff
-proc SCODE_FACILITY*(r: SCODE): uint16 = (r shr 16) and 0x1fff
-proc HRESULT_SEVERITY*(r: HRESULT): uint16 = ( r shr 31 ) and 0x1
-proc SCODE_SEVERITY*(r: SCODE): uint16 = (r shr 31) and 0x1
+proc HRESULT_CODE*(r: HRESULT): uint16 = r.uint16 and 0xFFFF
+proc SCODE_CODE*(r: SCODE): uint16 = r.uint16 and 0xFFFF
+proc HRESULT_FACILITY*(r: HRESULT): uint16 = (r.uint16 shr 16) and 0x1fff
+proc SCODE_FACILITY*(r: SCODE): uint16 = (r.uint16 shr 16) and 0x1fff
+proc HRESULT_SEVERITY*(r: HRESULT): uint16 = ( r.uint16 shr 31 ) and 0x1
+proc SCODE_SEVERITY*(r: SCODE): uint16 = (r.uint16 shr 31) and 0x1
 proc MAKE_HRESULT*(s: BOOL, f: uint32, c: uint32): HRESULT = (s.HRESULT shl 31) or (f shl 16).HRESULT or c.HRESULT
 proc MAKE_SCODE*(s: BOOL, f: uint32, c: uint32): SCODE = (s.SCODE shl 31) or (f shl 16).SCODE or c.SCODE
 proc GetScode*(hr: HRESULT): SCODE = hr
